@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
-import 'package:login_app/page/home_screen.dart';
+import 'package:login_app/screens/home_screen.dart';
 
 
 class AccountScreen extends StatefulWidget {
@@ -19,8 +19,7 @@ class _AccountScreenState extends State<AccountScreen> {
           IconButton(
             icon: Icon(Icons.save),
             onPressed: () {
-              Navigator.of(context)
-                  .pop(MyHomePage());
+              Navigator.of(context).pop(HomeScreen());
             },
           )
         ],
@@ -85,14 +84,14 @@ class _AccountBodyState extends State<AccountBody> {
                 actions: <Widget>[
                   FlatButton(
                     child: Text("Shoot picure"),
-                    onPressed: () async{
+                    onPressed: () async {
                       Navigator.of(context).pop();
                       await _pickImageFromCamera();
                     },
                   ),
                   FlatButton(
                     child: Text("Pick from gallery"),
-                    onPressed: () async{
+                    onPressed: () async {
                       Navigator.of(context).pop();
                       await _pickImageFromGallery();
                     },
@@ -111,10 +110,7 @@ class _AccountBodyState extends State<AccountBody> {
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage(file)
-                  )
-              )),
+                      fit: BoxFit.fill, image: AssetImage(file)))),
         ],
       ),
     );

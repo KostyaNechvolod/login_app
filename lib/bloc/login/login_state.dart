@@ -51,18 +51,18 @@ class LoginState {
 
   @override
   bool operator ==(
-      Object other,
-      ) =>
+    Object other,
+  ) =>
       identical(
         this,
         other,
       ) ||
-          other is LoginState &&
-              runtimeType == other.runtimeType &&
-              isLoading == other.isLoading &&
-              isLoginButtonEnabled == other.isLoginButtonEnabled &&
-              error == other.error &&
-              token == other.token;
+      other is LoginState &&
+          runtimeType == other.runtimeType &&
+          isLoading == other.isLoading &&
+          isLoginButtonEnabled == other.isLoginButtonEnabled &&
+          error == other.error &&
+          token == other.token;
 
   @override
   int get hashCode =>

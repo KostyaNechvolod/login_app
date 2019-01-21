@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:login_app/user_repository.dart';
 
 import 'package:login_app/bloc/authentication/autentication.dart';
-import 'package:login_app/page/splash_screen.dart';
-import 'package:login_app/page/login_screen.dart';
-import 'package:login_app/page/home_screen.dart';
+import 'package:login_app/screens/splash_screen.dart';
+import 'package:login_app/screens/login_screen.dart';
+import 'package:login_app/screens/home_screen.dart';
 import 'package:login_app/widget/loading_indicator.dart';
 
 void main() => runApp(App());
@@ -45,7 +45,7 @@ class AppState extends State<App> {
             List<Widget> widgets = [];
 
             if (state.isAuthenticated) {
-              widgets.add(MyHomePage());
+              widgets.add(HomeScreen());
             } else {
               widgets.add(LoginPage(userRepository: _userRepository));
             }

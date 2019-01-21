@@ -5,8 +5,8 @@ import 'package:bloc/bloc.dart';
 
 import 'package:login_app/user_repository.dart';
 
-
 import 'package:login_app/bloc/login/login.dart';
+import 'package:login_app/bloc/flags.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserRepository userRepository;
@@ -18,18 +18,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   @override
   Stream<LoginState> mapEventToState(
-      LoginState currentState,
-      LoginEvent event,
-      ) async* {
+    LoginState currentState,
+    LoginEvent event,
+  ) async* {
     if (event is LoginButtonPressed) {
       yield LoginState.loading();
 
       try {
         final token = await userRepository.authenticate(
-          username: event.username,
-          password: event.password,
-          flag: 'Email'
-        );
+            username: event.username,
+            password: event.password,
+            flag: Flags.email);
 
         yield LoginState.success(token);
       } catch (error) {
@@ -42,10 +41,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       try {
         final token = await userRepository.authenticate(
-          username: '',
-            password: '',
-          flag: 'Google'
-        );
+            username: '', password: '', flag: Flags.google);
 
         yield LoginState.success(token);
       } catch (error) {

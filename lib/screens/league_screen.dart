@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:login_app/bloc/home/home.dart';
 import 'package:login_app/model/model.dart';
-import 'package:login_app/page/league_info_page.dart';
+import 'package:login_app/screens/league_info_screen.dart';
 
 class LeagueList extends StatefulWidget {
   @override
@@ -77,7 +77,8 @@ class _LeagueListState extends State<LeagueList> {
                 itemBuilder: (BuildContext context, int index) {
                   return index >= state.listElements.length
                       ? BottomLoader()
-                      : ListElementWidget(listElement: state.listElements[index]);
+                      : ListElementWidget(
+                          listElement: state.listElements[index]);
                 },
                 itemCount: state.hasReachedMax
                     ? state.listElements.length
@@ -106,7 +107,6 @@ class _LeagueListState extends State<LeagueList> {
                   print('SPORT = ' + _sport);
                   setState(() {});
                   _leagueBloc.dispatch(FetchLeagueWithParam(_country, _sport));
-
                 });
           }),
     );
@@ -144,7 +144,8 @@ class _LeagueListState extends State<LeagueList> {
                         _country = value;
                         print('COUNTRY = ' + _country);
                         setState(() {});
-                        _leagueBloc.dispatch(FetchLeagueWithParam(_country, _sport));
+                        _leagueBloc
+                            .dispatch(FetchLeagueWithParam(_country, _sport));
                       },
                     ))
                 : Padding(padding: EdgeInsets.symmetric(vertical: 20)),

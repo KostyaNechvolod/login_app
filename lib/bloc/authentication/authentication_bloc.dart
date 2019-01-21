@@ -22,8 +22,8 @@ class AuthenticationBloc
     AuthenticationEvent event,
   ) async* {
     if (event is AppStart) {
-      final String hasToken = await userRepository.hasToken();
-      if (hasToken != 'false') {
+      final bool hasToken = await userRepository.hasToken();
+      if (hasToken) {
         yield AuthenticationState.authenticated();
       } else {
         yield AuthenticationState.unauthenticated();

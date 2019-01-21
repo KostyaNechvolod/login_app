@@ -28,16 +28,15 @@ class SportInfoScreen extends StatelessWidget {
                 ),
                 Text(
                   listElement.strSport,
-                  style: TextStyle(fontSize: 50,
-                  fontStyle: FontStyle.italic),
+                  style: TextStyle(fontSize: 50, fontStyle: FontStyle.italic),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                Text(listElement.strSportDescription,
-                style: TextStyle(
-                  fontSize: 20
-                ),),
+                Text(
+                  listElement.strSportDescription,
+                  style: TextStyle(fontSize: 20),
+                ),
               ],
             ),
           ),

@@ -16,16 +16,17 @@ class LoginButtonPressed extends LoginEvent {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is LoginButtonPressed &&
-              runtimeType == other.runtimeType &&
-              username == other.username &&
-              password == other.password;
+      other is LoginButtonPressed &&
+          runtimeType == other.runtimeType &&
+          username == other.username &&
+          password == other.password;
 
   @override
   int get hashCode => username.hashCode ^ password.hashCode;
 
   @override
-  String toString() => 'LoginButtonPressed { username: $username, password: $password }';
+  String toString() =>
+      'LoginButtonPressed { username: $username, password: $password }';
 }
 
 class GoogleLoginButtonPressed extends LoginEvent {

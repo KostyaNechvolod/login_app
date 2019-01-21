@@ -4,7 +4,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:login_app/bloc/home/home.dart';
 
 import 'package:login_app/model/model.dart';
-import 'package:login_app/page/team_info_page.dart';
+import 'package:login_app/screens/team_info_screen.dart';
 
 class LeagueListScreen extends StatelessWidget {
   final TeamBloc _teamBloc = TeamBloc();

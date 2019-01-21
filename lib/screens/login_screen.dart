@@ -85,8 +85,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<LoginEvent, LoginState>(
       bloc: widget.loginBloc,
-      builder: (BuildContext context,
-          LoginState loginState,) {
+      builder: (
+        BuildContext context,
+        LoginState loginState,
+      ) {
         if (_loginSucceeded(loginState)) {
           widget.authBloc.dispatch(Login(token: loginState.token));
           widget.loginBloc.dispatch(LoggedIn());
@@ -132,7 +134,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     _submitGoogleButton(context, loginstate),
-                    SizedBox(width: 8.0,),
+                    SizedBox(
+                      width: 8.0,
+                    ),
                     _submitButton(context, loginstate),
                   ],
                 ),
@@ -209,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _passwordInput(TextEditingController passwordController) {
     return TextFormField(
       validator: (value) {
-        if (value.length<6) {
+        if (value.length < 6) {
           return 'Password must be longer than 6 symbols!';
         }
       },
@@ -241,8 +245,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _submitGoogleButton(BuildContext context, LoginState loginState) {
     if (_formMode == FormMode.SIGNIN) {
       return RaisedButton(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
           color: Colors.red,
           child: Text(
             'Login with Google',
@@ -252,15 +256,15 @@ class _LoginScreenState extends State<LoginScreen> {
             loginState.isLoginButtonEnabled
                 ? _onGoogleLoginButtonPressed()
                 : null;
-          }
-      );
+          });
     }
   }
 
   Widget _submitButton(BuildContext context, LoginState loginState) {
     if (_formMode == FormMode.SIGNIN) {
       return RaisedButton(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
           color: Colors.blue,
           child: Text(
             'Login',
@@ -274,14 +278,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     : null;
               });
             }
-          }
-      );
+          });
     } else {
       return Padding(
         padding: EdgeInsets.symmetric(vertical: 16.0),
         child: RaisedButton(
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
           color: Colors.blue,
           child: Text(
             'Sign up',
@@ -303,7 +306,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: FlatButton(
               child: Text('Don\'t have an account? Sign up',
                   style:
-                  TextStyle(fontSize: 20.0, fontWeight: FontWeight.w300)),
+                      TextStyle(fontSize: 20.0, fontWeight: FontWeight.w300)),
               onPressed: () {},
             ),
             height: 30.0,
@@ -312,7 +315,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: FlatButton(
               child: Text('Forgot password?',
                   style:
-                  TextStyle(fontSize: 15.0, fontWeight: FontWeight.w300)),
+                      TextStyle(fontSize: 15.0, fontWeight: FontWeight.w300)),
               onPressed: () {},
             ),
             height: 30.0,
@@ -335,9 +338,7 @@ class _LoginScreenState extends State<LoginScreen> {
     ));
   }
 
-  _onGoogleLoginButtonPressed() async{
-
-    widget.loginBloc.dispatch(GoogleLoginButtonPressed(
-    ));
+  _onGoogleLoginButtonPressed() async {
+    widget.loginBloc.dispatch(GoogleLoginButtonPressed());
   }
 }

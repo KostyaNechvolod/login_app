@@ -6,7 +6,7 @@ class AppStart extends AuthenticationEvent {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is AppStart && runtimeType == other.runtimeType;
+      other is AppStart && runtimeType == other.runtimeType;
 
   @override
   int get hashCode => runtimeType.hashCode;
@@ -23,9 +23,9 @@ class Login extends AuthenticationEvent {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is Login &&
-              runtimeType == other.runtimeType &&
-              token == other.token;
+      other is Login &&
+          runtimeType == other.runtimeType &&
+          token == other.token;
 
   @override
   int get hashCode => token.hashCode;
@@ -38,7 +38,7 @@ class Logout extends AuthenticationEvent {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is Logout && runtimeType == other.runtimeType;
+      other is Logout && runtimeType == other.runtimeType;
 
   @override
   int get hashCode => runtimeType.hashCode;

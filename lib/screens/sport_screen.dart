@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:login_app/bloc/home/home.dart';
 import 'package:login_app/model/model.dart';
-import 'package:login_app/page/sport_info_page.dart';
-
+import 'package:login_app/screens/sport_info_screen.dart';
 
 class SportList extends StatefulWidget {
   @override
@@ -93,6 +92,7 @@ class BottomLoader extends StatelessWidget {
 class ListElementWidget extends StatelessWidget {
   final Sport listElement;
   final _biggerFont = const TextStyle(fontSize: 18.0);
+
   const ListElementWidget({Key key, @required this.listElement})
       : super(key: key);
 
@@ -108,7 +108,11 @@ class ListElementWidget extends StatelessWidget {
         );
       },
       child: ListTile(
-        leading: Image.network(listElement.strSportThumb, width: 100, height: 50,),
+        leading: Image.network(
+          listElement.strSportThumb,
+          width: 100,
+          height: 50,
+        ),
         title: Text(
           listElement.strSport,
           style: _biggerFont,

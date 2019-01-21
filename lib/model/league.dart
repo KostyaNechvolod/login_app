@@ -11,8 +11,4 @@ class League {
   League(this.strLeague, this.strSport, this.strLeagueAlternate);
 
   factory League.fromJson(Map<String, dynamic> json) => _$LeagueFromJson(json);
-
-
-
-
 }

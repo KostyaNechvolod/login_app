@@ -1,0 +1,1 @@
+enum Flags { google, email }

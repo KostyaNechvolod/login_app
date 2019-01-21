@@ -135,7 +135,6 @@ class TeamInfoScreen extends StatelessWidget {
                         width: 20,
                       ),
                       FlatButton(
-
                           onPressed: () {
                             loadWebSite(team.strInstagram);
                           },
@@ -165,7 +164,7 @@ class TeamInfoScreen extends StatelessWidget {
     );
   }
 
-  void loadWebSite(String url)  async {
+  void loadWebSite(String url) async {
     if (await canLaunch("http://$url")) {
       await launch("http://$url");
     } else {

@@ -10,4 +10,3 @@ Sport _$SportFromJson(Map<String, dynamic> json) {
   return Sport(json['strSport'] as String, json['strSportThumb'] as String,
       json['strSportDescription'] as String);
 }
-

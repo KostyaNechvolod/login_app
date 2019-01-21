@@ -49,17 +49,17 @@ class AuthenticationState {
 
   @override
   bool operator ==(
-      Object other,
-      ) =>
+    Object other,
+  ) =>
       identical(
         this,
         other,
       ) ||
-          other is AuthenticationState &&
-              runtimeType == other.runtimeType &&
-              isInitializing == other.isInitializing &&
-              isAuthenticated == other.isAuthenticated &&
-              isLoading == other.isLoading;
+      other is AuthenticationState &&
+          runtimeType == other.runtimeType &&
+          isInitializing == other.isInitializing &&
+          isAuthenticated == other.isAuthenticated &&
+          isLoading == other.isLoading;
 
   @override
   int get hashCode =>

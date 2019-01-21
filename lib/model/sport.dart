@@ -11,6 +11,4 @@ class Sport {
   Sport(this.strSport, this.strSportThumb, this.strSportDescription);
 
   factory Sport.fromJson(Map<String, dynamic> json) => _$SportFromJson(json);
-
-
 }
