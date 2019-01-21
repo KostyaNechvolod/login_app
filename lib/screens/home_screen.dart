@@ -32,12 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {},
             ),
             IconButton(
-              icon: Icon(Icons.exit_to_app),
-              onPressed: () {
-                authenticationBloc.dispatch(Logout());
-              },
-            ),
-            IconButton(
               icon: Icon(Icons.account_circle),
               onPressed: () {
                 Navigator.push(context,
@@ -64,6 +58,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => AboutUsScreen())),
               ),
+              ListTile(
+                title: Text('Log out'),
+                onTap: () {
+                  authenticationBloc.dispatch(Logout());
+                },
+              )
             ],
           ),
         ),
