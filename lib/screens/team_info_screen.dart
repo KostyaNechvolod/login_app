@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:url_launcher/url_launcher.dart';
-
 import 'package:login_app/model/team_info.dart';
+import 'package:login_app/net_utils.dart';
 
 class TeamInfoScreen extends StatelessWidget {
   final Team team;
@@ -11,6 +10,67 @@ class TeamInfoScreen extends StatelessWidget {
 
   final _biggerFont =
       const TextStyle(fontSize: 20, fontStyle: FontStyle.italic);
+
+  Widget _getTeamBage(String url, String tag) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Hero(
+        tag: 'hero$tag',
+        child: Image.network(url, width: 100, height: 100),
+      ),
+    );
+  }
+
+  Widget _getTeamMainInfo(
+      String teamName, String teamFormedYear, String teamLeague) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
+          child: Text('Team name - $teamName'),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
+          child: Text('Year of foundation - $teamFormedYear'),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
+          child: Text('League - $teamLeague'),
+        ),
+      ],
+    );
+  }
+
+  Widget _getTeamStadium(String url, String stadiumLocation) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: <Widget>[
+          url != null
+              ? Image.network(url, width: 120, height: 120)
+              : SizedBox(),
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('Location - $stadiumLocation',
+                textAlign: TextAlign.center),
+          )),
+        ],
+      ),
+    );
+  }
+
+  Widget _getLinks(String url, String iconAssetPath) {
+    if (url != null) {
+      return ListTile(
+        leading: Image.asset(iconAssetPath, height: 20, width: 20),
+        title: Text(url),
+        onTap: () => NetUtils.loadWebSite(team.strWebsite),
+      );
+    } else
+      SizedBox();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,60 +84,16 @@ class TeamInfoScreen extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Hero(
-                  tag: 'hero${team.strTeam}',
-                  child: Image.network(
-                    team.strTeamBadge,
-                    width: 100,
-                    height: 100,
-                  ),
-                ),
-                SizedBox(
-                  width: 8.0,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text('Team name - ${team.strTeam}'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text('Year of foundation - ${team.intFormedYear}'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text('League - ${team.strLeague}'),
-                  ],
-                )
+                _getTeamBage(team.strTeamBadge, team.strTeam),
+                _getTeamMainInfo(
+                    team.strTeam, team.intFormedYear, team.strLeague),
               ],
             ),
             Divider(),
             Column(
               children: <Widget>[
-                Text(
-                  'Home stadium',
-                  style: _biggerFont,
-                ),
-                SizedBox(
-                  height: 8.0,
-                ),
-                Row(
-                  children: <Widget>[
-                    team.strStadiumThumb != null
-                        ? Image.network(
-                            team.strStadiumThumb,
-                            width: 120,
-                            height: 120,
-                          )
-                        : SizedBox(),
-                    SizedBox(
-                      width: 8.0,
-                    ),
-                    Expanded(
-                        child: Text('Location - ${team.strStadiumLocation}',
-                            textAlign: TextAlign.center)),
-                  ],
-                ),
+                Text('Home stadium', style: _biggerFont),
+                _getTeamStadium(team.strStadiumThumb, team.strStadiumLocation),
               ],
             ),
             Divider(),
@@ -87,88 +103,20 @@ class TeamInfoScreen extends StatelessWidget {
                   'Team Info',
                   style: _biggerFont,
                 ),
-                SizedBox(
-                  height: 10,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(team.strDescriptionEN),
                 ),
-                Text(team.strDescriptionEN),
               ],
             ),
             Divider(),
-            team.strWebsite != null
-                ? Row(
-                    children: <Widget>[
-                      Image.asset(
-                        'assets/web.png',
-                        height: 20,
-                        width: 20,
-                      ),
-                      FlatButton(
-                          onPressed: () {
-                            loadWebSite(team.strWebsite);
-                          },
-                          child: Text(team.strWebsite))
-                    ],
-                  )
-                : SizedBox(),
-            team.strFacebook != null
-                ? Row(
-                    children: <Widget>[
-                      Image.asset(
-                        'assets/facebook.png',
-                        height: 20,
-                        width: 20,
-                      ),
-                      FlatButton(
-                          onPressed: () {
-                            loadWebSite(team.strFacebook);
-                          },
-                          child: Text(team.strFacebook))
-                    ],
-                  )
-                : SizedBox(),
-            team.strInstagram != null
-                ? Row(
-                    children: <Widget>[
-                      Image.asset(
-                        'assets/insta.png',
-                        height: 20,
-                        width: 20,
-                      ),
-                      FlatButton(
-                          onPressed: () {
-                            loadWebSite(team.strInstagram);
-                          },
-                          child: Text(team.strInstagram))
-                    ],
-                  )
-                : SizedBox(),
-            team.strTwitter != null
-                ? Row(
-                    children: <Widget>[
-                      Image.asset(
-                        'assets/twitter.png',
-                        height: 20,
-                        width: 20,
-                      ),
-                      FlatButton(
-                          onPressed: () {
-                            loadWebSite(team.strTwitter);
-                          },
-                          child: Text(team.strTwitter))
-                    ],
-                  )
-                : SizedBox(),
+            _getLinks(team.strWebsite, 'assets/web.png'),
+            _getLinks(team.strFacebook, 'assets/facebook.png'),
+            _getLinks(team.strInstagram, 'assets/insta.png'),
+            _getLinks(team.strTwitter, 'assets/twitter.png'),
           ],
         ),
       ),
     );
-  }
-
-  void loadWebSite(String url) async {
-    if (await canLaunch("http://$url")) {
-      await launch("http://$url");
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }

@@ -23,31 +23,6 @@ class AccountScreen extends StatelessWidget {
   }
 }
 
-/*class AccountScreen extends StatefulWidget {
-  @override
-  _AccountScreenState createState() => _AccountScreenState();
-}
-
-class _AccountScreenState extends State<AccountScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Account'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.save),
-            onPressed: () {
-              Navigator.of(context).pop(HomeScreen());
-            },
-          )
-        ],
-      ),
-      body: AccountBody(),
-    );
-  }
-}*/
-
 class AccountBody extends StatefulWidget {
   @override
   _AccountBodyState createState() => _AccountBodyState();

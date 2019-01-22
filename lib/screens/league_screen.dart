@@ -47,8 +47,8 @@ class _LeagueListState extends State<LeagueList> {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Expanded(flex: 6, child: showCountry()),
-                  Expanded(flex: 6, child: showSport()),
+                  Expanded(flex: 6, child: _getCountry()),
+                  Expanded(flex: 6, child: _getSport()),
                 ],
               ),
               Center(
@@ -66,8 +66,8 @@ class _LeagueListState extends State<LeagueList> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Expanded(flex: 6, child: showCountry()),
-                Expanded(flex: 6, child: showSport()),
+                Expanded(flex: 6, child: _getCountry()),
+                Expanded(flex: 6, child: _getSport()),
               ],
             ),
             Expanded(
@@ -91,7 +91,7 @@ class _LeagueListState extends State<LeagueList> {
     );
   }
 
-  Widget showSport() {
+  Widget _getSport() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: BlocBuilder(
@@ -127,9 +127,9 @@ class _LeagueListState extends State<LeagueList> {
     return listDrops;
   }
 
-  Widget showCountry() {
+  Widget _getCountry() {
     return FutureBuilder(
-        future: listDrop(),
+        future: _getCountriesDropDownMenuItem(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           return Container(
             child: snapshot.hasData
@@ -153,7 +153,7 @@ class _LeagueListState extends State<LeagueList> {
         });
   }
 
-  Future<List<DropdownMenuItem<String>>> listDrop() async {
+  Future<List<DropdownMenuItem<String>>> _getCountriesDropDownMenuItem() async {
     var data = await DefaultAssetBundle.of(context)
         .loadString("assets/countries.json");
     var jsonData = json.decode(data);

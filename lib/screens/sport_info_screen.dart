@@ -19,23 +19,26 @@ class SportInfoScreen extends StatelessWidget {
             padding: EdgeInsets.all(8.0),
             child: ListView(
               children: <Widget>[
-                Image.network(
-                  listElement.strSportThumb,
-                  fit: BoxFit.fill,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.network(
+                    listElement.strSportThumb,
+                    fit: BoxFit.fill,
+                  ),
                 ),
-                SizedBox(
-                  height: 20,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    listElement.strSport,
+                    style: TextStyle(fontSize: 50, fontStyle: FontStyle.italic),
+                  ),
                 ),
-                Text(
-                  listElement.strSport,
-                  style: TextStyle(fontSize: 50, fontStyle: FontStyle.italic),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  listElement.strSportDescription,
-                  style: TextStyle(fontSize: 20),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    listElement.strSportDescription,
+                    style: TextStyle(fontSize: 20),
+                  ),
                 ),
               ],
             ),

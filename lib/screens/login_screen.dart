@@ -71,6 +71,7 @@ class _LoginPageState extends State<LoginPage> {
   FormMode _formMode = FormMode.SIGNIN;
   final formKey = new GlobalKey<FormState>();
   bool _obscureText = true;
+
 //  bool _showProgress = false;
 
   void _signUp() {
@@ -132,10 +133,10 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     _submitGoogleButton(context, loginState),
-                    SizedBox(
-                      width: 8.0,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: _submitButton(context, loginState),
                     ),
-                    _submitButton(context, loginState),
                   ],
                 ),
                 _label()

@@ -40,33 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        drawer: Drawer(
-          child: ListView(
-            children: <Widget>[
-              UserAccountsDrawerHeader(
-                accountName: Text('User name'),
-                accountEmail: Text('email@email.com'),
-                currentAccountPicture: CircleAvatar(
-                  child: FlutterLogo(
-                    size: 42.0,
-                  ),
-                  backgroundColor: Colors.white,
-                ),
-              ),
-              ListTile(
-                title: Text('About us'),
-                onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => AboutUsScreen())),
-              ),
-              ListTile(
-                title: Text('Log out'),
-                onTap: () {
-                  authenticationBloc.dispatch(Logout());
-                },
-              )
-            ],
-          ),
-        ),
+        drawer: _getDrawer(authenticationBloc),
         body: page[_currentPage],
         bottomNavigationBar: BottomNavigationBar(
           onTap: (page) => setState(() {
@@ -75,10 +49,44 @@ class _HomeScreenState extends State<HomeScreen> {
           currentIndex: _currentPage,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.accessibility_new), title: Text('Sport')),
+              icon: Icon(Icons.accessibility_new),
+              title: Text('Sport'),
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.clear_all), title: Text('Leagues'))
+              icon: Icon(Icons.clear_all),
+              title: Text('Leagues'),
+            )
           ],
         ));
+  }
+
+  Widget _getDrawer(AuthenticationBloc authenticationBloc) {
+    return Drawer(
+      child: ListView(
+        children: <Widget>[
+          UserAccountsDrawerHeader(
+            accountName: Text('User name'),
+            accountEmail: Text('email@email.com'),
+            currentAccountPicture: CircleAvatar(
+              child: FlutterLogo(
+                size: 42.0,
+              ),
+              backgroundColor: Colors.white,
+            ),
+          ),
+          ListTile(
+            title: Text('About us'),
+            onTap: () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => AboutUsScreen())),
+          ),
+          ListTile(
+            title: Text('Log out'),
+            onTap: () {
+              authenticationBloc.dispatch(Logout());
+            },
+          )
+        ],
+      ),
+    );
   }
 }

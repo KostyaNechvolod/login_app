@@ -20,18 +20,24 @@ class LeagueListScreen extends StatelessWidget {
       bloc: _teamBloc,
       builder: (BuildContext context, TeamState state) {
         if (state.isInitializing) {
-          return Center(
-            child: CircularProgressIndicator(),
+          return Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
         if (state.isError) {
-          return Center(
-            child: Text('failed to fetch Team elements'),
+          return Scaffold(
+            body: Center(
+              child: Text('failed to fetch Team elements'),
+            ),
           );
         }
         if (state.listElements.isEmpty) {
-          return Center(
-            child: Text('no Coctails'),
+          return Scaffold(
+            body: Center(
+              child: Text('no Teams'),
+            ),
           );
         }
 
@@ -44,10 +50,8 @@ class LeagueListScreen extends StatelessWidget {
                 height: 500.0,
                 child: Swiper(
                   itemBuilder: (BuildContext context, int index) {
-                    return index >= state.listElements.length
-                        ? BottomLoader()
-                        : ListElementWidget(
-                            listElement: state.listElements[index]);
+                    return ListElementWidget(
+                        listElement: state.listElements[index]);
                   },
                   itemCount: state.hasReachedMax
                       ? state.listElements.length
@@ -58,24 +62,6 @@ class LeagueListScreen extends StatelessWidget {
               ),
             ));
       },
-    );
-  }
-}
-
-class BottomLoader extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: Center(
-        child: SizedBox(
-          width: 33,
-          height: 33,
-          child: CircularProgressIndicator(
-            strokeWidth: 1.5,
-          ),
-        ),
-      ),
     );
   }
 }

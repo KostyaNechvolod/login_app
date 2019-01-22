@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:url_launcher/url_launcher.dart';
-
 import 'package:login_app/screens/map_screen.dart';
+import 'package:login_app/net_utils.dart';
 
 
 class AboutUsScreen extends StatelessWidget {
@@ -15,11 +14,8 @@ class AboutUsScreen extends StatelessWidget {
       body: Column(
         children: <Widget>[
           ListTile(
-            title: FlatButton(
-                onPressed: () {
-                  loadWebSite();
-                },
-                child: Text('Favorite video on YouTube')),
+            title: Text('Favorite video on YouTube'),
+            onTap: () => NetUtils.loadWebSite('youtu.be/hA0hrpR-o8U'),
           ),
           ListTile(
             title: Text('Open Map'),
@@ -29,14 +25,5 @@ class AboutUsScreen extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void loadWebSite() async {
-    String url = 'youtu.be/hA0hrpR-o8U';
-    if (await canLaunch("https://$url")) {
-      await launch("https://$url");
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }

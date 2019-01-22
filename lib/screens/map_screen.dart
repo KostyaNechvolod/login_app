@@ -18,17 +18,16 @@ class _MapScreenState extends State<MapScreen> {
       MarkerOptions(
         position: LatLng(50.005758, 36.229163),
         infoWindowText: InfoWindowText('Random Place', '5 Star Rating'),
-        icon: BitmapDescriptor.defaultMarker,
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
-          title: Text('Maps Sample App'),
+          title: Text('Map'),
           backgroundColor: Colors.green[700],
         ),
         body: GoogleMap(
@@ -42,7 +41,6 @@ class _MapScreenState extends State<MapScreen> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
