@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:login_app/bloc/flags.dart';
+import 'package:login_app/bloc/auth_methods.dart';
 
 class UserRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -14,11 +14,11 @@ class UserRepository {
   Future<String> authenticate({
     @required String username,
     @required String password,
-    @required Flags flag,
+    @required AuthMethod authMethod,
   }) async {
     String _token;
-    switch (flag) {
-      case Flags.email:
+    switch (authMethod) {
+      case AuthMethod.EMAIL_PASSWORD:
         try {
           FirebaseUser user = await _auth.signInWithEmailAndPassword(
               email: username, password: password);
@@ -27,7 +27,7 @@ class UserRepository {
           throw 'Failed';
         }
         return _token;
-      case Flags.google:
+      case AuthMethod.GOOGLE:
         try {
           GoogleSignIn _googleSignIn = GoogleSignIn();
           GoogleSignInAccount googleUser = await _googleSignIn.signIn();
@@ -67,8 +67,8 @@ class UserRepository {
     /// read from keystore/keychain
     prefs = await SharedPreferences.getInstance();
     String result;
-    result = prefs.getString('Token') ?? 'false';
-    if (result != 'false') {
+    result = prefs.getString('Token') ?? null;
+    if (result != null) {
       return true;
     } else {
       return false;

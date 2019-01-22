@@ -6,7 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:login_app/user_repository.dart';
 
 import 'package:login_app/bloc/login/login.dart';
-import 'package:login_app/bloc/flags.dart';
+import 'package:login_app/bloc/auth_methods.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserRepository userRepository;
@@ -28,7 +28,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final token = await userRepository.authenticate(
             username: event.username,
             password: event.password,
-            flag: Flags.email);
+            authMethod: AuthMethod.EMAIL_PASSWORD);
 
         yield LoginState.success(token);
       } catch (error) {
@@ -41,7 +41,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       try {
         final token = await userRepository.authenticate(
-            username: '', password: '', flag: Flags.google);
+            username: '', password: '', authMethod: AuthMethod.GOOGLE);
 
         yield LoginState.success(token);
       } catch (error) {

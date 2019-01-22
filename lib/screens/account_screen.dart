@@ -3,8 +3,27 @@ import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
 import 'package:login_app/screens/home_screen.dart';
 
+class AccountScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Account'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.save),
+            onPressed: () {
+              Navigator.of(context).pop(HomeScreen());
+            },
+          )
+        ],
+      ),
+      body: AccountBody(),
+    );
+  }
+}
 
-class AccountScreen extends StatefulWidget {
+/*class AccountScreen extends StatefulWidget {
   @override
   _AccountScreenState createState() => _AccountScreenState();
 }
@@ -27,7 +46,7 @@ class _AccountScreenState extends State<AccountScreen> {
       body: AccountBody(),
     );
   }
-}
+}*/
 
 class AccountBody extends StatefulWidget {
   @override
@@ -56,48 +75,30 @@ class _AccountBodyState extends State<AccountBody> {
         SizedBox(
           height: 50.0,
         ),
-        showAccountImage(),
+        _getAccountImage(),
         SizedBox(
           height: 80.0,
         ),
-        showEmail(),
+        _getEmail(),
         SizedBox(
           height: 10.0,
         ),
-        showName(),
+        _getName(),
         SizedBox(
           height: 10.0,
         ),
-        showCountry(),
+        _getCountry(),
       ],
     );
   }
 
-  Widget showAccountImage() {
+  Widget _getAccountImage() {
     return GestureDetector(
       onTap: () {
         showDialog(
             context: context,
             builder: (BuildContext context) {
-              return AlertDialog(
-                content: Text('Choose image source'),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text("Shoot picure"),
-                    onPressed: () async {
-                      Navigator.of(context).pop();
-                      await _pickImageFromCamera();
-                    },
-                  ),
-                  FlatButton(
-                    child: Text("Pick from gallery"),
-                    onPressed: () async {
-                      Navigator.of(context).pop();
-                      await _pickImageFromGallery();
-                    },
-                  )
-                ],
-              );
+              return _showInputSourceDialog();
             });
       },
       child: Column(
@@ -110,9 +111,33 @@ class _AccountBodyState extends State<AccountBody> {
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                      fit: BoxFit.fill, image: AssetImage(file)))),
+                    fit: BoxFit.fill,
+                    image: AssetImage(file),
+                  ))),
         ],
       ),
+    );
+  }
+
+  Widget _showInputSourceDialog() {
+    return AlertDialog(
+      content: Text('Choose image source'),
+      actions: <Widget>[
+        FlatButton(
+          child: Text("Shoot picure"),
+          onPressed: () async {
+            Navigator.of(context).pop();
+            await _pickImageFromCamera();
+          },
+        ),
+        FlatButton(
+          child: Text("Pick from gallery"),
+          onPressed: () async {
+            Navigator.of(context).pop();
+            await _pickImageFromGallery();
+          },
+        )
+      ],
     );
   }
 
@@ -130,7 +155,7 @@ class _AccountBodyState extends State<AccountBody> {
     });
   }
 
-  Widget showEmail() {
+  Widget _getEmail() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
@@ -153,7 +178,7 @@ class _AccountBodyState extends State<AccountBody> {
     );
   }
 
-  Widget showName() {
+  Widget _getName() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
@@ -176,9 +201,9 @@ class _AccountBodyState extends State<AccountBody> {
     );
   }
 
-  Widget showCountry() {
+  Widget _getCountry() {
     return FutureBuilder(
-        future: listDrop(),
+        future: _getCountriesDropDownMenueItems(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           return Center(
             child: snapshot.hasData
@@ -198,18 +223,19 @@ class _AccountBodyState extends State<AccountBody> {
         });
   }
 
-  Future<List<DropdownMenuItem<String>>> listDrop() async {
+  Future<List<DropdownMenuItem<String>>>
+      _getCountriesDropDownMenueItems() async {
     var data = await DefaultAssetBundle.of(context)
         .loadString("assets/countries.json");
     var jsonData = json.decode(data);
 
-    List<DropdownMenuItem<String>> listDrops = [];
+    List<DropdownMenuItem<String>> _dropDownMenueCountryItem = [];
     for (var data in jsonData) {
-      listDrops.add(DropdownMenuItem(
+      _dropDownMenueCountryItem.add(DropdownMenuItem(
         child: Text(data["name"].toString()),
         value: data["code"],
       ));
     }
-    return listDrops;
+    return _dropDownMenueCountryItem;
   }
 }

@@ -6,19 +6,20 @@ import 'package:login_app/user_repository.dart';
 
 import 'package:login_app/bloc/authentication/autentication.dart';
 import 'package:login_app/bloc/login/login.dart';
+import 'package:login_app/bloc/input_validation.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   final UserRepository userRepository;
 
-  LoginPage({Key key, @required this.userRepository})
+  LoginScreen({Key key, @required this.userRepository})
       : assert(userRepository != null),
         super(key: key);
 
   @override
-  State<LoginPage> createState() => LoginPageState();
+  State<LoginScreen> createState() => LoginScreenState();
 }
 
-class LoginPageState extends State<LoginPage> {
+class LoginScreenState extends State<LoginScreen> {
   LoginBloc _loginBloc;
 
   @override
@@ -33,7 +34,7 @@ class LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text('Login'),
       ),
-      body: LoginScreen(
+      body: LoginPage(
         authBloc: BlocProvider.of<AuthenticationBloc>(context),
         loginBloc: _loginBloc,
       ),
@@ -47,32 +48,30 @@ class LoginPageState extends State<LoginPage> {
   }
 }
 
-/////////////////////////////////////
-
-class LoginScreen extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   final LoginBloc loginBloc;
   final AuthenticationBloc authBloc;
 
-  LoginScreen({
+  LoginPage({
     Key key,
     @required this.loginBloc,
     @required this.authBloc,
   }) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
 enum FormMode { SIGNIN, SIGNUP }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
   FormMode _formMode = FormMode.SIGNIN;
   final formKey = new GlobalKey<FormState>();
   bool _obscureText = true;
-  bool _showProgress = false;
+//  bool _showProgress = false;
 
   void _signUp() {
     formKey.currentState.reset();
@@ -104,13 +103,12 @@ class _LoginScreenState extends State<LoginScreen> {
             );
           });
         }
-
         return _form(loginState);
       },
     );
   }
 
-  Widget _form(LoginState loginstate) {
+  Widget _form(LoginState loginState) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.grey[200],
@@ -133,11 +131,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    _submitGoogleButton(context, loginstate),
+                    _submitGoogleButton(context, loginState),
                     SizedBox(
                       width: 8.0,
                     ),
-                    _submitButton(context, loginstate),
+                    _submitButton(context, loginState),
                   ],
                 ),
                 _label()
@@ -177,17 +175,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  String validateEmail(String value) {
-    Pattern pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value)) {
-      return 'Enter Valid Email';
-    } else {
-      return null;
-    }
-  }
-
   Widget _emailInput(TextEditingController usernameController) {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
@@ -206,17 +193,13 @@ class _LoginScreenState extends State<LoginScreen> {
             Icons.mail,
             color: Colors.black87,
           )),
-      validator: validateEmail,
+      validator: (input) => InputValidation.validateEmail(input),
     );
   }
 
   Widget _passwordInput(TextEditingController passwordController) {
     return TextFormField(
-      validator: (value) {
-        if (value.length < 6) {
-          return 'Password must be longer than 6 symbols!';
-        }
-      },
+      validator: (input) => InputValidation.validatePassword(input),
       obscureText: _obscureText,
       controller: passwordController,
       autofocus: false,

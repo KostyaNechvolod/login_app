@@ -47,7 +47,7 @@ class AppState extends State<App> {
             if (state.isAuthenticated) {
               widgets.add(HomeScreen());
             } else {
-              widgets.add(LoginPage(userRepository: _userRepository));
+              widgets.add(LoginScreen(userRepository: _userRepository));
             }
 
             if (state.isInitializing) {
